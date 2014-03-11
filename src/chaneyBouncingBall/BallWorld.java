@@ -161,11 +161,11 @@ public class BallWorld extends JPanel {
     * One game time-step. 
     * Update the game objects, with proper collision detection and response.
     */
-   public void gameUpdate() {
-	  detectCollision( ball , ball2);
-	  ball.moveOneStepWithCollisionDetection(box, ball2);
-      ball2.moveOneStepWithCollisionDetection(box, ball);
-//      detectCollision( ball , ball2);
+   public void gameUpdate()
+   {
+	   detectCollision( ball , ball2);
+	   ball.moveOneStepWithCollisionDetection(box, ball2);
+	   ball2.moveOneStepWithCollisionDetection(box, ball);
    }
    
    /** The custom drawing panel for the bouncing ball (inner class). */
