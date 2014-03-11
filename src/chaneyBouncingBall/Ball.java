@@ -88,6 +88,16 @@ public class Ball
 		return forceAngle;
 	}
 	
+	public void setVelocityX(float x)
+	{
+		velocity.x = x;
+	}
+	
+	public void setVelocityY(float y)
+	{
+		velocity.y = y;
+	}
+	
 	public void moveOneStepWithCollisionDetection(ContainerBox box, Ball ball)
 	{
 //		float forceMag = 1;

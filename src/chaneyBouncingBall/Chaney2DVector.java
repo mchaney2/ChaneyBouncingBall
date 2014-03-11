@@ -27,6 +27,10 @@ public class Chaney2DVector
 		
 	}
 	
-
+	public float getLength()
+	{
+		float length = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+		return length;
+	}
 	
 }
