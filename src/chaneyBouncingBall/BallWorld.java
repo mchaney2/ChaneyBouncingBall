@@ -119,12 +119,12 @@ public class BallWorld extends JPanel {
       gameThread.start();  // Invoke GaemThread.run()
    }
    
-   public float getDistance(Ball ball1, Ball ball2)
-   {
-	   float distance = (float) Math.sqrt(Math.pow(ball2.x - ball1.x, 2) +
-			   Math.pow(ball2.y - ball1.y, 2));
-	   return distance;
-   }
+//   public float getDistance(Ball ball2)
+//   {
+//	   float distance = (float) Math.sqrt(Math.pow(ball2.x - x, 2) +
+//			   Math.pow(ball2.y - y, 2));
+//	   return distance;
+//   }
    
 //   public void detectCollision(Ball ball1, Ball ball2)
 //   {
@@ -163,8 +163,8 @@ public class BallWorld extends JPanel {
     */
    public void gameUpdate()
    {
-	   ball.moveOneStepWithCollisionDetection(box, ball, ball2);
-	   ball2.moveOneStepWithCollisionDetection(box, ball, ball);
+	   ball.moveOneStepWithCollisionDetection(box, ball2);
+	   ball2.moveOneStepWithCollisionDetection(box, ball);
    }
    
    /** The custom drawing panel for the bouncing ball (inner class). */
