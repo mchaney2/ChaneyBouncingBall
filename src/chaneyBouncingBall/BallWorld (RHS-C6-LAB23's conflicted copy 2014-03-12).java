@@ -30,6 +30,33 @@ public class BallWorld extends JPanel {
       this.canvasWidth = width;
       this.canvasHeight = height;
       
+      // Init the ball at a random location (inside the box) and moveAngle
+//      Random rand = new Random();
+//      double radius = 25;
+////      int x = rand.nextInt(canvasWidth - radius * 2 - 20) + radius + 10;
+////      int y = rand.nextInt(canvasHeight - radius * 2 - 20) + radius + 10;
+//      
+//      double x = 300;
+//      double y = 250;
+//      double x2 = rand.nextInt(500);
+//      double y2 = rand.nextInt(500);
+//      double speed = 0;
+//      double accel = 5;
+//      double accelAngle;
+//      if (x2 < x)
+//      {
+//    	  accelAngle = Math.atan2(y2 - 250, x2 - 300);
+//      }
+//      else
+//      {
+//    	accelAngle = Math.atan2(y2 - 250, x2 - 300) + Math.PI;  
+//      }
+//    	  
+//      
+      
+//      ball = new Ball(x, y, radius, speed, double 0, double 0, angleInDegree, Color.BLUE);
+//      ball2 = new Ball(x2, y2, 15, speed, accel, accelAngle, angleInDegree, Color.yellow);
+      
       boolean stationary = true;
       Random rand = new Random();
       int angleInDegree = rand.nextInt(360);
@@ -99,6 +126,14 @@ public class BallWorld extends JPanel {
       gameStart();
    }
    
+	public void bounceDetect(Ball ball1, Ball ball2)
+	{
+		if (ball1.getDistance(ball2) < (ball1.radius + ball2.radius))
+		{
+			ball1.velocity.x = (ball1.mass *  );
+		}
+	}
+   
    /** Start the ball bouncing. */
    public void gameStart() {
       // Run the game logic in its own thread.
@@ -119,52 +154,15 @@ public class BallWorld extends JPanel {
       gameThread.start();  // Invoke GaemThread.run()
    }
    
-   public float getDistance(Ball ball1, Ball ball2)
-   {
-	   float distance = (float) Math.sqrt(Math.pow(ball2.x - ball1.x, 2) +
-			   Math.pow(ball2.y - ball1.y, 2));
-	   return distance;
-   }
-   
-//   public void detectCollision(Ball ball1, Ball ball2)
-//   {
-//	   /**
-//	    * newVelX1 = (firstBall.speed.x * (firstBall.mass – secondBall.mass) + (2 * secondBall.mass * secondBall.speed.x)) / (firstBall.mass + secondBall.mass);
-//		* newVelY1 = (firstBall.speed.y * (firstBall.mass – secondBall.mass) + (2 * secondBall.mass * secondBall.speed.y)) / (firstBall.mass + secondBall.mass);
-//		* newVelX2 = (secondBall.speed.x * (secondBall.mass – firstBall.mass) + (2 * firstBall.mass * firstBall.speed.x)) / (firstBall.mass + secondBall.mass);
-//		* newVelY2 = (secondBall.speed.y * (secondBall.mass – firstBall.mass) + (2 * firstBall.mass * firstBall.speed.y)) / (firstBall.mass + secondBall.mass);
-//	    */
-//	   
-//	   if (getDistance(ball1, ball2) < (ball1.radius + ball2.radius))
-//	   {
-//		   ball1.setVelocityX((ball1.velocity.x * (ball1.mass - ball2.mass) + 
-//				   (2 * ball2.mass * ball2.velocity.x))
-//				   / (ball1.mass + ball2.mass));
-//		   ball1.setVelocityY((ball1.velocity.y * (ball1.mass - ball2.mass) + 
-//					(2 * ball2.mass * ball2.velocity.y)) 
-//					/ (ball1.mass + ball2.mass));
-//		   ball2.setVelocityX((ball2.velocity.x * (ball2.mass - ball1.mass) + 
-//					(2 * ball1.mass * ball1.velocity.x)) 
-//					/ (ball1.mass + ball2.mass));
-//		   ball2.setVelocityY((ball2.velocity.y * (ball2.mass - ball1.mass) + 
-//					(2 * ball1.mass * ball1.velocity.y)) 
-//					/ (ball1.mass + ball2.mass));
-//		   
-//	   }
-//	   else 
-//	   {
-//		   
-//	   }
-//   }
+
    
    /** 
     * One game time-step. 
     * Update the game objects, with proper collision detection and response.
     */
-   public void gameUpdate()
-   {
-	   ball.moveOneStepWithCollisionDetection(box, ball, ball2);
-	   ball2.moveOneStepWithCollisionDetection(box, ball, ball);
+   public void gameUpdate() {
+      ball.moveOneStepWithCollisionDetection(box, ball2);
+      ball2.moveOneStepWithCollisionDetection(box, ball);
    }
    
    /** The custom drawing panel for the bouncing ball (inner class). */

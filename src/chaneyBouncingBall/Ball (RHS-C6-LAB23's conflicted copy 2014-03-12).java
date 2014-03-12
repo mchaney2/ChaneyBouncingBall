@@ -51,13 +51,12 @@ public class Ball
 
 	}
 	
-	   public float getDistance(Ball ball2)
-	   {
-		   float distance = (float) Math.sqrt(Math.pow(ball2.x - x, 2) +
-				   Math.pow(ball2.y - y, 2));
-		   return distance;
-	   }
-	
+	public float getDistance(Ball ball)
+	{
+		float distance = (float) Math.sqrt(Math.pow((ball.position.x - position.x),2) + 
+				Math.pow((ball.position.y - position.y), 2));
+		return distance;
+	}
 	
 	public void draw(Graphics g)
 	{
@@ -95,22 +94,33 @@ public class Ball
 		return forceAngle;
 	}
 	
-	public void setVelocityX(float x)
+	public void setVelocity(float x, float y)
 	{
 		velocity.x = x;
-	}
-	
-	public void setVelocityY(float y)
-	{
 		velocity.y = y;
 	}
 	
-	public void moveOneStepWithCollisionDetection(ContainerBox box, Ball ball1, Ball ball2)
+	public float getVelocityAngle()
+	{
+		float velocityAngle;
+		if (velocity.x < 0)
+		{
+			velocityAngle = (float) (Math.atan(velocity.y / velocity.x) + Math.PI);
+		}
+		
+		else
+		{
+			velocityAngle = (float) (Math.atan(velocity.y / velocity.x));
+		}
+		
+		return velocityAngle;
+	}
+	public void moveOneStepWithCollisionDetection(ContainerBox box, Ball ball)
 	{
 //		float forceMag = 1;
 //		float forceAngle = (float) Math.PI / 2;
-		float forceMag = (float) this.getForceMag(ball1);
-		float forceAngle = (float) this.getForceAngle(ball1);
+		float forceMag = (float) this.getForceMag(ball);
+		float forceAngle = (float) this.getForceAngle(ball);
 		
 		System.out.println("The force magnitude is: " + forceMag);
 		System.out.println("The force angle is: " + forceAngle);
@@ -155,21 +165,5 @@ public class Ball
 			position.y = ballMaxY;
 		}
 		
-		if (getDistance(ball2) < (ball1.radius + ball2.radius))
-		   {
-			   ball1.setVelocityX((ball1.velocity.x * (ball1.mass - ball2.mass) + 
-					   (2 * ball2.mass * ball2.velocity.x))
-					   / (ball1.mass + ball2.mass));
-			   ball1.setVelocityY((ball1.velocity.y * (ball1.mass - ball2.mass) + 
-						(2 * ball2.mass * ball2.velocity.y)) 
-						/ (ball1.mass + ball2.mass));
-			   ball2.setVelocityX((ball2.velocity.x * (ball2.mass - ball1.mass) + 
-						(2 * ball1.mass * ball1.velocity.x)) 
-						/ (ball1.mass + ball2.mass));
-			   ball2.setVelocityY((ball2.velocity.y * (ball2.mass - ball1.mass) + 
-						(2 * ball1.mass * ball1.velocity.y)) 
-						/ (ball1.mass + ball2.mass));
-			   
-		   }
 	}
 }
